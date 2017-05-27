@@ -33,7 +33,6 @@ public class BudgetActivity extends BaseActivity {
     private BroadcastReceiver receiver;
     private IntentFilter filter;
     private SwipeRecyclerView budgetListView;
-    private BudgetAdapter adapter = null;
     private EditText form;
 
 
@@ -123,7 +122,7 @@ public class BudgetActivity extends BaseActivity {
             item.setName(values.get(0));
             item.setUnitCost(Integer.parseInt(values.get(1).trim()));
             item.setQuantity(values.size() > 2 ? Integer.parseInt(values.get(2).trim()) : 1);
-            item.setUnits("");
+            item.setUnits("_");
             item.setStatus(BudgetItem.PENDING);
             item.setUser_id(1);
             item.setLast_mod(0);
@@ -141,7 +140,7 @@ public class BudgetActivity extends BaseActivity {
     public void loadData(Bundle data) {
         budget = new Budget(this, 21);
         budget.fetchItems();
-        adapter = new BudgetAdapter(budget, new OnRecyclerItemClickListener() {
+        BudgetAdapter adapter = new BudgetAdapter(budget, new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int position) {
 

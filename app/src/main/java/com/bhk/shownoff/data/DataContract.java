@@ -50,7 +50,10 @@ public class DataContract {
      * Columns supported by "entries" records.
      */
     public static class BudgetFields implements BaseColumns {
-
+        /**
+         * Path component for "BudgetFields"-type resources..
+         */
+        public static final String TB_BUDGET = "budget";
         /**
          * MIME type for lists of budgetItems.
          */
@@ -58,6 +61,7 @@ public class DataContract {
         /**
          * MIME type for individual budgetItem.
          */
+
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/com.shownoff.entries";
         public static final String _ID = BaseColumns._ID;
         public static final String NAME = "name";
@@ -84,19 +88,16 @@ public class DataContract {
                         BudgetFields.USER_ID + TYPE_INTEGER + COMMA_SEP +
                         BudgetFields.BUDGET_ID + TYPE_INTEGER + COMMA_SEP +
                         BudgetFields.LAST_MOD + TYPE_INTEGER + ")";
+
         /**
          * SQL statement to drop "BudgetFields" table.
          */
         public static final String DELETE_BUDGET_TABLE =
                 "DROP TABLE IF EXISTS " + TB_BUDGET;
-        /**
-         * Path component for "BudgetFields"-type resources..
-         */
-        private static final String PATH_BUDGET = "budget";
+
         /**
          * Fully qualified URI for "BudgetFields" resources.
          */
-        public static final Uri BUDGET_URI = BASE_CONTENT_URI.buildUpon().appendPath(CONTENT_OWNER).appendPath(PATH_BUDGET).build();
-        public static final String TB_BUDGET = PATH_BUDGET;
+        public static final Uri BUDGET_URI = BASE_CONTENT_URI.buildUpon().appendPath(CONTENT_OWNER).appendPath(TB_BUDGET).build();
     }
 }
