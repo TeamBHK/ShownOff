@@ -143,9 +143,7 @@ public class BudgetActivity extends BaseActivity {
         BudgetAdapter adapter = new BudgetAdapter(budget, new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
             }
-
             @Override
             public void onItemLongCLick(int position) {
                 //  budget.removeItem(position);

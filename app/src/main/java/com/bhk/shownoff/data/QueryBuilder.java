@@ -23,7 +23,7 @@ import java.util.Map;
  * thread safe.
  */
 public class QueryBuilder {
-    private static final String TAG = "mikolo.data.provider";
+    private static final String TAG = QueryBuilder.class.getSimpleName();
     private String mTable = null;
     private Map<String, String> mProjectionMap = new HashMap<>();
     private StringBuilder mSelection = new StringBuilder();
