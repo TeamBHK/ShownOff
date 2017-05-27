@@ -79,7 +79,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
     }
 
     /**
-     * @return ' Mukolo id
+     * @return ' Budget id
      */
     public long getBudgetId() {
         return budgetId;
@@ -114,8 +114,12 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
 
     public void fetchItems() {
         Uri uri = DataContract.BudgetFields.BUDGET_URI;
-        String[] projection = new String[]{DataContract.BudgetFields._ID, DataContract.BudgetFields.NAME, DataContract.BudgetFields.QUANTITY, DataContract.BudgetFields.UNIT_COST,
-                DataContract.BudgetFields.STATUS, DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID, DataContract.BudgetFields.BUDGET_ID};
+        String[] projection = new String[]{
+                DataContract.BudgetFields._ID, DataContract.BudgetFields.NAME,
+                DataContract.BudgetFields.QUANTITY, DataContract.BudgetFields.UNIT_COST,
+                DataContract.BudgetFields.STATUS, DataContract.BudgetFields.LAST_MOD,
+                DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID,
+                DataContract.BudgetFields.BUDGET_ID};
         String selection = DataContract.BudgetFields.BUDGET_ID + " = ?";
         String[] selectionArgs = {String.valueOf(budgetId)};
         String sortOrder = DataContract.BudgetFields.NAME
@@ -126,7 +130,6 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
         ArrayList<BudgetItem> temp = createFromCursor(cursor, budgetId);
         Log.d(TAG, "fetchItems: " + temp.toString());
         this.addAll(temp);
-
     }
 
     /**
@@ -135,7 +138,6 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
     public void fetchItemsForSync() {
         Fetcher f = new Fetcher();
         f.execute();
-
     }
 
     private ArrayList<BudgetItem> createFromCursor(Cursor cursor, long mukolo_id) {
@@ -155,11 +157,11 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
             item.setS_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.SERVER_ID))));
             item.setUser_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.USER_ID))));
             item.setLast_mod(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.LAST_MOD))));
-//            if (item.getStatus().equals(BudgetItem.TRASH)) {
-//                trashedItems.add(item);
-//            } else {
-//                items.add(item);
-//            }
+            if (item.getStatus().equals(BudgetItem.TRASH)) {
+                trashedItems.add(item);
+            } else {
+                items.add(item);
+            }
             cursor.moveToNext();
         }
         cursor.close();

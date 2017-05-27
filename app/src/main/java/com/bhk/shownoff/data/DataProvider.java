@@ -9,9 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by cato on 5/27/17.
@@ -115,7 +112,7 @@ public class DataProvider extends ContentProvider {
      */
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        Log.d(TAG, "insert: " + values.toString());
+//        Log.d(TAG, "insert: " + values.toString());
         final SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         assert db != null;
         final int match = sUriMatcher.match(uri);
@@ -125,6 +122,7 @@ public class DataProvider extends ContentProvider {
             case ENTRIES:
                 long id = db.insertOrThrow(table, DataContract.BudgetFields.SERVER_ID, values);
                 result = Uri.parse(uri + "/" + id);
+//                Log.d(TAG, "insert: " + result);
                 break;
             case ENTRIES_ID:
                 throw new UnsupportedOperationException("Insert not supported on URI: " + uri);
@@ -138,6 +136,7 @@ public class DataProvider extends ContentProvider {
         sync(ctx, table);
         return result;
     }
+
     /**
      * Delete an entry by database by URI.
      */

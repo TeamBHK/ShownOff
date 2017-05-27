@@ -73,6 +73,7 @@ public class BudgetActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add: {
+
             }
             break;
             case R.id.action_sync: {
@@ -114,10 +115,9 @@ public class BudgetActivity extends BaseActivity {
     private void submit(String data) {
         String[] entries = data.split(",");
         ArrayList<String> values = new ArrayList<>(Arrays.asList(entries));
-
         if (values.size() > 1) {
             BudgetItem item = new BudgetItem(this, 0);
-            item.setBudget_id(budget.getBudgetId());
+            item.setBudget_id(21);
             item.setName(values.get(0));
             item.setUnitCost(Integer.parseInt(values.get(1).trim()));
             item.setQuantity(values.size() > 2 ? Integer.parseInt(values.get(2).trim()) : 1);
@@ -132,7 +132,6 @@ public class BudgetActivity extends BaseActivity {
             form.setError("Please add Item and Unit cost!");
         }
         form.clearFocus();
-//        Log.d(TAG, "submit: " + values.toString());
     }
 
     @Override
@@ -143,9 +142,10 @@ public class BudgetActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
             }
+
             @Override
             public void onItemLongCLick(int position) {
-//                  budget.removeItem(position);
+                //budget.removeItem(position);
                 // Snackbar.make(budgetListView, budget.get(position).getName(), Snackbar.LENGTH_SHORT).show();
             }
         });
