@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -133,7 +132,7 @@ public class BudgetActivity extends BaseActivity {
             form.setError("Please add Item and Unit cost!");
         }
         form.clearFocus();
-        Log.d(TAG, "submit: " + values.toString());
+//        Log.d(TAG, "submit: " + values.toString());
     }
 
     @Override
@@ -146,7 +145,7 @@ public class BudgetActivity extends BaseActivity {
             }
             @Override
             public void onItemLongCLick(int position) {
-                //  budget.removeItem(position);
+//                  budget.removeItem(position);
                 // Snackbar.make(budgetListView, budget.get(position).getName(), Snackbar.LENGTH_SHORT).show();
             }
         });

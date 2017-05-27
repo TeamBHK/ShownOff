@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.bhk.shownoff.adapters.BudgetAdapter;
 import com.bhk.shownoff.data.DataContract;
@@ -34,8 +35,8 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
         this.context = context;
     }
 
-    public Budget(Context context, long mukoloId) {
-        this.budgetId = mukoloId;
+    public Budget(Context context, long budgetId) {
+        this.budgetId = budgetId;
         this.context = context;
     }
 
@@ -122,7 +123,10 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
         Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
         trashedItems.clear();
         this.clear();
-        this.addAll(createFromCursor(cursor, budgetId));
+        ArrayList<BudgetItem> temp = createFromCursor(cursor, budgetId);
+        Log.d(TAG, "fetchItems: " + temp.toString());
+        this.addAll(temp);
+
     }
 
     /**

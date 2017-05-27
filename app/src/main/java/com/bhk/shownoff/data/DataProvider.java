@@ -138,7 +138,6 @@ public class DataProvider extends ContentProvider {
         sync(ctx, table);
         return result;
     }
-
     /**
      * Delete an entry by database by URI.
      */

@@ -13,7 +13,7 @@ public class DataContract {
     /**
      * Schema version.
      */
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     /**
      * Filename for SQLite file.
      */
@@ -71,7 +71,7 @@ public class DataContract {
         public static final String UNITS = "units";
         public static final String SERVER_ID = "server_id";
         public static final String STATUS = "status";
-        public static final String BUDGET_ID = "mukolo_id";
+        public static final String BUDGET_ID = "budget_id";
         public static final String LAST_MOD = "last_update";
         /**
          * Create BudgetFields table query string
@@ -98,6 +98,7 @@ public class DataContract {
         /**
          * Fully qualified URI for "BudgetFields" resources.
          */
-        public static final Uri BUDGET_URI = BASE_CONTENT_URI.buildUpon().appendPath(CONTENT_OWNER).appendPath(TB_BUDGET).build();
+        public static final Uri BUDGET_URI = BASE_CONTENT_URI.buildUpon().appendPath(CONTENT_OWNER)
+                .appendPath(TB_BUDGET).build();
     }
 }

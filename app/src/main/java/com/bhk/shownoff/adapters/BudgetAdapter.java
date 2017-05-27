@@ -130,7 +130,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.
         holder.statusCheck.setTag(budget.indexOf(item));
         holder.statusCheck.setChecked(mCheckStates.get(budget.indexOf(item), Budget.isCovered(item)));
         holder.statusCheck.setOnCheckedChangeListener(this);
-
         if (item.getLast_mod() == 0) {
             ViewCompat.setAlpha(holder.row, 0.6F);
         } else {
@@ -162,10 +161,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
 
     public void addAll(ArrayList<BudgetItem> items) {
