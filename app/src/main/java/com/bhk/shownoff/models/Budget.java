@@ -41,7 +41,6 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
 
     public static boolean isCovered(BudgetItem item) {
         return item.getStatus().equals(BudgetItem.COVERED);
-
     }
 
     public static int clearTrash(Context context) {
@@ -152,7 +151,6 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
             item.setS_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.SERVER_ID))));
             item.setUser_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.USER_ID))));
             item.setLast_mod(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.LAST_MOD))));
-
 //            if (item.getStatus().equals(BudgetItem.TRASH)) {
 //                trashedItems.add(item);
 //            } else {

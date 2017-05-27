@@ -65,9 +65,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
         final BudgetItem item = budget.get(position);
-
         if (itemsPendingRemoval.contains(item)) {
             // we need to show the "undo" state of the row
             holder.itemView.setBackgroundColor(Color.LTGRAY);

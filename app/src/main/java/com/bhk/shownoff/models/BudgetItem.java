@@ -157,7 +157,6 @@ public class BudgetItem extends Syncompatible {
         return result != null;
     }
 
-
     private int update() {
         Uri uri = Uri.parse(DataContract.BudgetFields.BUDGET_URI + "/" + this.getId());
         String selection = DataContract.BudgetFields._ID + " = ?";

@@ -78,9 +78,7 @@ public class BudgetActivity extends BaseActivity {
             }
             break;
             case R.id.action_sync: {
-//                String[] tables = {"budget"};
-//                Sync sync = new Sync(this);
-//                sync.performSync(tables);
+
             }
             break;
             case android.R.id.home: {
