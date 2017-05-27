@@ -21,7 +21,7 @@ import java.util.Comparator;
 public class Budget extends ArrayList<BudgetItem> implements Syncable {
     private static final String TAG = "BUDGET..";
     private final ArrayList<BudgetItem> trashedItems = new ArrayList<>();
-    private long mukoloId;
+    private long budgetId;
     private Context context;
     private OnBudgetRefresh refresh;
     /**
@@ -35,7 +35,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
     }
 
     public Budget(Context context, long mukoloId) {
-        this.mukoloId = mukoloId;
+        this.budgetId = mukoloId;
         this.context = context;
     }
 
@@ -81,15 +81,15 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
     /**
      * @return ' Mukolo id
      */
-    public long getMukoloId() {
-        return mukoloId;
+    public long getBudgetId() {
+        return budgetId;
     }
 
     /**
-     * @param mukoloId' id of the current mukolo.
+     * @param budgetId' id of the current mukolo.
      */
-    public void setMukoloId(long mukoloId) {
-        this.mukoloId = mukoloId;
+    public void setBudgetId(long budgetId) {
+        this.budgetId = budgetId;
     }
 
     public BudgetAdapter getAdapter() {
@@ -115,15 +115,15 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
     public void fetchItems() {
         Uri uri = DataContract.BudgetFields.BUDGET_URI;
         String[] projection = new String[]{DataContract.BudgetFields._ID, DataContract.BudgetFields.NAME, DataContract.BudgetFields.QUANTITY, DataContract.BudgetFields.UNIT_COST,
-                DataContract.BudgetFields.STATUS, DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID, DataContract.BudgetFields.MUKOLO_ID};
-        String selection = DataContract.BudgetFields.MUKOLO_ID + " = ?";
-        String[] selectionArgs = {String.valueOf(mukoloId)};
+                DataContract.BudgetFields.STATUS, DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID, DataContract.BudgetFields.BUDGET_ID};
+        String selection = DataContract.BudgetFields.BUDGET_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(budgetId)};
         String sortOrder = DataContract.BudgetFields.NAME
                 + " ASC";
         Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
         trashedItems.clear();
         this.clear();
-        this.addAll(createFromCursor(cursor, mukoloId));
+        this.addAll(createFromCursor(cursor, budgetId));
     }
 
     /**
@@ -148,7 +148,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
             item.setUnitCost(cursor.getDouble(cursor.getColumnIndex(DataContract.BudgetFields.UNIT_COST)));
             item.setQuantity(cursor.getInt(cursor.getColumnIndex(DataContract.BudgetFields.QUANTITY)));
             item.setStatus(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.STATUS)));
-            item.setMukolo_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.MUKOLO_ID))));
+            item.setBudget_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.BUDGET_ID))));
             item.setS_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.SERVER_ID))));
             item.setUser_id(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.USER_ID))));
             item.setLast_mod(Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.LAST_MOD))));
@@ -250,7 +250,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
             String[] projection = new String[]{DataContract.BudgetFields._ID, DataContract.BudgetFields.NAME,
                     DataContract.BudgetFields.QUANTITY, DataContract.BudgetFields.UNIT_COST, DataContract.BudgetFields.STATUS,
                     DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID,
-                    DataContract.BudgetFields.MUKOLO_ID};
+                    DataContract.BudgetFields.BUDGET_ID};
             String sortOrder = DataContract.BudgetFields.NAME
                     + " ASC";
             return context.getContentResolver().query(uri, projection, null, null, sortOrder);
@@ -261,7 +261,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
             super.onPostExecute(cursor);
             trashedItems.clear();
             Budget.this.clear();
-            Budget.this.addAll(createFromCursor(cursor, mukoloId));
+            Budget.this.addAll(createFromCursor(cursor, budgetId));
             if (refresh != null)
                 refresh.onRefresh();
         }

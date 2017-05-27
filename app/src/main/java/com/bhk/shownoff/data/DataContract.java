@@ -67,7 +67,7 @@ public class DataContract {
         public static final String UNITS = "units";
         public static final String SERVER_ID = "server_id";
         public static final String STATUS = "status";
-        public static final String MUKOLO_ID = "mukolo_id";
+        public static final String BUDGET_ID = "mukolo_id";
         public static final String LAST_MOD = "last_update";
         /**
          * Create BudgetFields table query string
@@ -82,7 +82,7 @@ public class DataContract {
                         BudgetFields.SERVER_ID + TYPE_INTEGER + COMMA_SEP +
                         BudgetFields.STATUS + TYPE_TEXT + COMMA_SEP +
                         BudgetFields.USER_ID + TYPE_INTEGER + COMMA_SEP +
-                        BudgetFields.MUKOLO_ID + TYPE_INTEGER + COMMA_SEP +
+                        BudgetFields.BUDGET_ID + TYPE_INTEGER + COMMA_SEP +
                         BudgetFields.LAST_MOD + TYPE_INTEGER + ")";
         /**
          * SQL statement to drop "BudgetFields" table.

@@ -37,7 +37,7 @@ public class BudgetItem extends Syncompatible {
      * Total cost of a single item
      */
     @Expose
-    private long mukolo_id;
+    private long budget_id;
     /**
      * holds the item status
      */
@@ -99,12 +99,12 @@ public class BudgetItem extends Syncompatible {
         this.status = status;
     }
 
-    public long getMukolo_id() {
-        return mukolo_id;
+    public long getBudget_id() {
+        return budget_id;
     }
 
-    public void setMukolo_id(long mukolo_id) {
-        this.mukolo_id = mukolo_id;
+    public void setBudget_id(long budget_id) {
+        this.budget_id = budget_id;
     }
 
     public int getQuantity() {
@@ -175,7 +175,7 @@ public class BudgetItem extends Syncompatible {
         Uri uri = DataContract.BudgetFields.BUDGET_URI;
         String[] projection = new String[]{DataContract.BudgetFields._ID, DataContract.BudgetFields.NAME,
                 DataContract.BudgetFields.QUANTITY, DataContract.BudgetFields.UNIT_COST, DataContract.BudgetFields.STATUS,
-                DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID, DataContract.BudgetFields.MUKOLO_ID};
+                DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID, DataContract.BudgetFields.BUDGET_ID};
         String selection = DataContract.BudgetFields._ID + " = ?";
         String[] selectionArgs = {String.valueOf(this.getId())};
         String sortOrder = DataContract.BudgetFields.NAME
@@ -197,7 +197,7 @@ public class BudgetItem extends Syncompatible {
         this.unitCost = cursor.getDouble(cursor.getColumnIndex(DataContract.BudgetFields.UNIT_COST));
         this.quantity = cursor.getInt(cursor.getColumnIndex(DataContract.BudgetFields.QUANTITY));
         this.status = cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.STATUS));
-        this.mukolo_id = Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.MUKOLO_ID)));
+        this.budget_id = Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.BUDGET_ID)));
         this.s_id = Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.SERVER_ID)));
         this.user_id = Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.USER_ID)));
         this.last_mod = Long.parseLong(cursor.getString(cursor.getColumnIndex(DataContract.BudgetFields.LAST_MOD)));
@@ -211,7 +211,7 @@ public class BudgetItem extends Syncompatible {
         values.put(DataContract.BudgetFields.UNITS, this.units);
         values.put(DataContract.BudgetFields.STATUS, this.status);
         values.put(DataContract.BudgetFields.LAST_MOD, this.last_mod);
-        values.put(DataContract.BudgetFields.MUKOLO_ID, this.mukolo_id);
+        values.put(DataContract.BudgetFields.BUDGET_ID, this.budget_id);
         values.put(DataContract.BudgetFields.USER_ID, this.user_id);
         values.put(DataContract.BudgetFields.SERVER_ID, this.s_id);
         return values;

@@ -121,7 +121,7 @@ public class BudgetActivity extends BaseActivity {
 
         if (values.size() > 1) {
             BudgetItem item = new BudgetItem(this, 0);
-            item.setMukolo_id(budget.getMukoloId());
+            item.setBudget_id(budget.getBudgetId());
             item.setName(values.get(0));
             item.setUnitCost(Integer.parseInt(values.get(1).trim()));
             item.setQuantity(values.size() > 2 ? Integer.parseInt(values.get(2).trim()) : 1);
