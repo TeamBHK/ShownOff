@@ -12,7 +12,6 @@ public class SyncDataBuilder {
 
     private Context context;
     private String type = "all";
-
     public SyncDataBuilder() {
 
     }

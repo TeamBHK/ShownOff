@@ -52,7 +52,7 @@ public class SyncService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String[] tables = intent.getStringArrayExtra("tables");
         sync(tables);
-        Log.d(TAG, "onStartCommand: Service started");
+//        Log.d(TAG, "onStartCommand: Service started");
         return super.onStartCommand(intent, flags, startId);
     }
 
