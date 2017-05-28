@@ -3,7 +3,6 @@ package com.bhk.shownoff.models;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import com.bhk.shownoff.adapters.BudgetAdapter;
 import com.bhk.shownoff.data.DataContract;
@@ -135,9 +134,21 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
      *
      */
     public void fetchItemsForSync() {
-        Fetcher f = new Fetcher();
-        f.execute();
+        Uri uri = DataContract.BudgetFields.BUDGET_URI;
+        String[] projection = new String[]{DataContract.BudgetFields._ID, DataContract.BudgetFields.NAME,
+                DataContract.BudgetFields.QUANTITY, DataContract.BudgetFields.UNIT_COST, DataContract.BudgetFields.STATUS,
+                DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID,
+                DataContract.BudgetFields.BUDGET_ID};
+        String sortOrder = DataContract.BudgetFields.NAME
+                + " ASC";
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, sortOrder);
+        trashedItems.clear();
+        Budget.this.clear();
+        Budget.this.addAll(createFromCursor(cursor, budgetId));
+        if (refresh != null)
+            refresh.onRefresh();
     }
+
 
     private ArrayList<BudgetItem> createFromCursor(Cursor cursor, long mukolo_id) {
         if (cursor == null)
@@ -246,27 +257,4 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
         }
     }
 
-    private class Fetcher extends AsyncTask<Void, Void, Cursor> {
-        @Override
-        protected Cursor doInBackground(Void... voids) {
-            Uri uri = DataContract.BudgetFields.BUDGET_URI;
-            String[] projection = new String[]{DataContract.BudgetFields._ID, DataContract.BudgetFields.NAME,
-                    DataContract.BudgetFields.QUANTITY, DataContract.BudgetFields.UNIT_COST, DataContract.BudgetFields.STATUS,
-                    DataContract.BudgetFields.LAST_MOD, DataContract.BudgetFields.SERVER_ID, DataContract.BudgetFields.USER_ID,
-                    DataContract.BudgetFields.BUDGET_ID};
-            String sortOrder = DataContract.BudgetFields.NAME
-                    + " ASC";
-            return context.getContentResolver().query(uri, projection, null, null, sortOrder);
-        }
-
-        @Override
-        protected void onPostExecute(Cursor cursor) {
-            super.onPostExecute(cursor);
-            trashedItems.clear();
-            Budget.this.clear();
-            Budget.this.addAll(createFromCursor(cursor, budgetId));
-            if (refresh != null)
-                refresh.onRefresh();
-        }
-    }
 }

@@ -85,13 +85,13 @@ public class SyncService extends Service {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
         String url = Utills.SYNC_URL;
         final String syncData = gson.toJson(data);
+        Log.d(TAG, "sync: " + syncData);
 
         try {
             post(url, syncData, t);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void post(String url, String json, final String[] tables) throws IOException {
@@ -109,7 +109,9 @@ public class SyncService extends Service {
 
             @Override
             public void onResponse(Response response) throws IOException {
-                SyncResults syncResults = new SyncResults(response.body().string());
+                String data = response.body().string();
+                Log.d(TAG, "onResponse: " + data);
+                SyncResults syncResults = new SyncResults(data);
                 for (String table : tables) {
                     handleNewData(syncResults, table);
                     handleModified(syncResults, table);
@@ -130,7 +132,6 @@ public class SyncService extends Service {
         Gson gson = new Gson();
         switch (table) {
             case BUDGET: {
-
                 for (int n = 0; n < newData.length(); n++) {
                     try {
                         Long serverId = newData.getJSONObject(n).getLong("id");
@@ -139,7 +140,6 @@ public class SyncService extends Service {
                         item.s_id = serverId;
                         item.id = 0;
                         item.save();
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -152,7 +152,6 @@ public class SyncService extends Service {
     private void handleUpdates(SyncResults syncResults, String table) {
         JSONArray updated = syncResults.getUpdates(table);
         Log.d("Updated_" + table, updated.toString());
-
         switch (table) {
             case BUDGET: {
 

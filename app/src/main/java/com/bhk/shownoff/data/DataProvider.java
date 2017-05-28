@@ -9,11 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.bhk.shownoff.sync.Synchronize;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by cato on 5/27/17.
@@ -212,7 +209,7 @@ public class DataProvider extends ContentProvider {
 
     private void sync(Context ctx, String table) {
         if (hasPendingSync(table)) {
-            Log.d(TAG, "sync: ..........................................................................");
+//            Log.d(TAG, "sync: ..........................................................................");
             String[] tables = {table};
             Synchronize sync = new Synchronize(ctx);
             sync.performSync(tables);
