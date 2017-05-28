@@ -16,5 +16,11 @@
     <style name="AppTheme.NoActionBar.AppBarOverlay"
            parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="form_style">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColorHint">#9e9e9e</item>
+    </style>
 
 </resources>

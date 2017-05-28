@@ -3,6 +3,7 @@ package com.bhk.shownoff.models;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.bhk.shownoff.adapters.BudgetAdapter;
 import com.bhk.shownoff.data.DataContract;
@@ -126,7 +127,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
         trashedItems.clear();
         this.clear();
         ArrayList<BudgetItem> temp = createFromCursor(cursor, budgetId);
-//        Log.d(TAG, "fetchItems: " + temp.toString());
+        Log.d(TAG, "fetchItems: " + temp.toString());
         this.addAll(temp);
     }
 
@@ -172,6 +173,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
             } else {
                 items.add(item);
             }
+            Log.d(TAG, "createFromCursor: " + item.getName() + item.getS_id());
             cursor.moveToNext();
         }
         cursor.close();

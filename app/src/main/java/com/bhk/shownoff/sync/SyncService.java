@@ -66,6 +66,7 @@ public class SyncService extends Service {
         if (t.length == 0) {
             return;
         }
+
         for (String tb : t) {
             switch (tb) {
                 case BUDGET: {
@@ -79,7 +80,6 @@ public class SyncService extends Service {
                 break;
             }
         }
-
         SyncDataBuilder builder = new SyncDataBuilder();
         ArrayList<SyncData> data = builder.build(tables);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
@@ -168,7 +168,6 @@ public class SyncService extends Service {
                         e.printStackTrace();
                     }
                 }
-
             }
             break;
             default: {
@@ -195,16 +194,12 @@ public class SyncService extends Service {
                         e.printStackTrace();
                     }
                 }
-
             }
             break;
             default: {
-
             }
             break;
         }
-
-
     }
 
     private void handleSynced(SyncResults syncResults, String table) {
