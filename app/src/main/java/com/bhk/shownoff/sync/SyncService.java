@@ -19,11 +19,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by cato on 5/27/17.
@@ -47,15 +50,16 @@ public class SyncService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String[] tables = intent.getStringArrayExtra("tables");
+        sync(tables);
+        Log.d(TAG, "onStartCommand: Service started");
         return super.onStartCommand(intent, flags, startId);
-
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
-
 
     private void sync(String[] t) {
         final ArrayList<Syncable> tables = new ArrayList<>();
@@ -81,32 +85,43 @@ public class SyncService extends Service {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
         String url = Utills.SYNC_URL;
         final String syncData = gson.toJson(data);
-        String response = null;
+
         try {
-            response = post(url, syncData);
+            post(url, syncData, t);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SyncResults syncResults = new SyncResults(response);
-        for (String table : t) {
-            handleNewData(syncResults, table);
-            handleModified(syncResults, table);
-            handleSynced(syncResults, table);
-            handleUpdates(syncResults, table);
-            handleTrash(syncResults, table);
-        }
-        Intent i = new Intent(Utills.SYNC_BROADCAST_INTENT);
-        sendBroadcast(i);
+
     }
 
-    private String post(String url, String json) throws IOException {
+    private void post(String url, String json, final String[] tables) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
                 .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+//                Toast.makeText(SyncService.this, "Network Error", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                SyncResults syncResults = new SyncResults(response.body().string());
+                for (String table : tables) {
+                    handleNewData(syncResults, table);
+                    handleModified(syncResults, table);
+                    handleSynced(syncResults, table);
+                    handleUpdates(syncResults, table);
+                    handleTrash(syncResults, table);
+                }
+                Intent i = new Intent(Utills.SYNC_BROADCAST_INTENT);
+                sendBroadcast(i);
+                SyncService.this.stopSelf();
+            }
+        });
     }
 
     private void handleNewData(SyncResults syncResults, String table) {

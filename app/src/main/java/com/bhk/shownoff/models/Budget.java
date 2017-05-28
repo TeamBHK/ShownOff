@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.bhk.shownoff.adapters.BudgetAdapter;
 import com.bhk.shownoff.data.DataContract;
@@ -128,7 +127,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
         trashedItems.clear();
         this.clear();
         ArrayList<BudgetItem> temp = createFromCursor(cursor, budgetId);
-        Log.d(TAG, "fetchItems: " + temp.toString());
+//        Log.d(TAG, "fetchItems: " + temp.toString());
         this.addAll(temp);
     }
 

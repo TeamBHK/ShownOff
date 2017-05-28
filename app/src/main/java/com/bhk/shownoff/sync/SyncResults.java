@@ -27,12 +27,9 @@ public class SyncResults {
     }
 
     private ArrayList<SyncResultsData> extractData() {
-
         try {
-
             JSONObject resultData = new JSONObject(results);
             JSONArray jArray = resultData.getJSONArray("data");
-
             for (int i = 0; i < jArray.length(); i++) {
                 JSONObject syncResult = jArray.getJSONObject(i);
                 String table = syncResult.getString("table");

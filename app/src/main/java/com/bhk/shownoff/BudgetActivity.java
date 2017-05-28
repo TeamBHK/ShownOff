@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bhk.shownoff.adapters.BudgetAdapter;
 import com.bhk.shownoff.models.Budget;
 import com.bhk.shownoff.models.BudgetItem;
+import com.bhk.shownoff.sync.Synchronize;
 import com.bhk.shownoff.ui.OnRecyclerItemClickListener;
 import com.bhk.shownoff.ui.SwipeRecyclerView;
 import com.bhk.shownoff.utills.Utills;
@@ -33,7 +34,6 @@ public class BudgetActivity extends BaseActivity {
     private IntentFilter filter;
     private SwipeRecyclerView budgetListView;
     private EditText form;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +73,12 @@ public class BudgetActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add: {
-
             }
             break;
             case R.id.action_sync: {
-
+                String[] tables = {"budget"};
+                Synchronize sync = new Synchronize(this);
+                sync.performSync(tables);
             }
             break;
             case android.R.id.home: {

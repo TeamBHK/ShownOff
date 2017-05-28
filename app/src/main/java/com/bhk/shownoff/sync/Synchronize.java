@@ -10,15 +10,12 @@ import android.util.Log;
 
 public class Synchronize {
     private Context context;
-    private String[] tables;
 
     public Synchronize(Context context) {
         this.context = context;
-
     }
 
     public void performSync(String[] tables) {
-        this.tables = tables;
         if (tables == null) {
             Log.d("Sync", "No tables provided");
         } else {
