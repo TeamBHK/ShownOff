@@ -6,7 +6,7 @@ This app will definitely store information about a shopping list name, Item name
 
 You may submit your preferred items offline and will be shared with other group members when you access internet again.
 
--Trello for Projecct management ( https://trello.com/b/cJkGTUVH/shopree ).
+-Trello for Projecct management ( https://trello.com/b/mwVBIps7/shownoff ).
 
 -Material Design for mobile apps.
 
@@ -20,7 +20,7 @@ You may submit your preferred items offline and will be shared with other group 
 
 -000webhosting to host the backend part of the project.
 
--Slim is the text editor we are using.
+-Atom is the text editor we are using.
 
 -Adobe Photoshop is helpful for most of the design work.
 
