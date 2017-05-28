@@ -110,7 +110,7 @@ public class SyncService extends Service {
             @Override
             public void onResponse(Response response) throws IOException {
                 String data = response.body().string();
-                Log.d(TAG, "onResponse: " + data);
+//                Log.d(TAG, "onResponse: " + data);
                 SyncResults syncResults = new SyncResults(data);
                 for (String table : tables) {
                     handleNewData(syncResults, table);

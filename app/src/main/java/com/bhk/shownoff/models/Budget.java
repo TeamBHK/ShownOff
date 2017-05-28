@@ -173,7 +173,7 @@ public class Budget extends ArrayList<BudgetItem> implements Syncable {
             } else {
                 items.add(item);
             }
-            Log.d(TAG, "createFromCursor: " + item.getName() + item.getS_id());
+//            Log.d(TAG, "createFromCursor: " + item.getName() + item.getS_id());
             cursor.moveToNext();
         }
         cursor.close();
